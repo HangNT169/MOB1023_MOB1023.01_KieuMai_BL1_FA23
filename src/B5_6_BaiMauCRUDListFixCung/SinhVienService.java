@@ -30,8 +30,12 @@ public class SinhVienService {
         return lists;
     }
 
-    public void add(SinhVien sv) {
+    public String add(SinhVien sv) {
+        if(sv == null){
+            return "Add that bai";
+        }
         lists.add(sv);
+        return "Add thanh cong";
     }
 
     public void remove(int viTri) {

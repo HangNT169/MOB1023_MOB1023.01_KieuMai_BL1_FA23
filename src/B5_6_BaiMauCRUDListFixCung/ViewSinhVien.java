@@ -6,6 +6,7 @@ package B5_6_BaiMauCRUDListFixCung;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -337,7 +338,7 @@ public class ViewSinhVien extends javax.swing.JFrame {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        sinhVienService.add(getFormData());
+        JOptionPane.showMessageDialog(this, sinhVienService.add(getFormData()));
         showDataTable(listSinhVien);
     }//GEN-LAST:event_btnThemActionPerformed
 
@@ -358,6 +359,31 @@ public class ViewSinhVien extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private SinhVien getFormData() {
+        // Validate 
+        // Check trong 
+        if(txtMaSV.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "ma sv khong duoc trong");
+            return null;
+        }
+        if(txtTen.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "ten sv khong duoc trong");
+            return null;
+        }
+        // Check ten phai la chu 
+        // C1: try..catch  Nguyen Thuy Hang
+        // C2: regex : https://o7planning.org/10175/java-regular-expression 
+        if(txtTen.getText().matches("[a-z A-Z]+") == false){
+            JOptionPane.showMessageDialog(this, "Ten khong dung dinh dang");
+            return null;
+        }
+        // Check so - tuoi
+        // C1: try catch
+        // C2: regex 
+        // So: [0-9]+ hoac \\d+
+        if(txtTuoi.getText().matches("\\d+") == false){
+            JOptionPane.showMessageDialog(this, "Tuoi khong dung dinh dang");
+            return null;
+        }
         SinhVien sv = new SinhVien();
         // B1: Lay toan bo du lieu tren form (view)
         String maSV = txtMaSV.getText();
